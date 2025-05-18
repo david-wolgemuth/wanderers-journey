@@ -22,7 +22,7 @@ This project isn’t just a game — it’s a framework for walking through stor
 - [Contributing](#contributing)
 - [License](#license)
 
-## Getting Started {#getting-started}
+## Getting Started
 
 No build tools. No installs. Just open index.html in a browser.
 
@@ -32,7 +32,7 @@ open index.html  # or drag into browser
 
 You’ll see a wanderer. And a voice. And a question.
 
-## Project Goals {#project-goals}
+## Project Goals
 
 This project was created to explore:
 
@@ -44,7 +44,7 @@ Text-first interaction — like a visual novel with no interface clutter
 
 World-building without world-building tools — just files and flow
 
-## Design Philosophy {#design-philosophy}
+## Design Philosophy
 
 Plaintext first: Tables are the source of truth
 
@@ -68,7 +68,7 @@ graph TD
 ```
 
 
-## Folder Structure {#folder-structure}
+## Folder Structure
 
 > Every file matters. Each one does exactly one thing.
 
@@ -121,7 +121,7 @@ const DialogueManager = (() => { /* ... */ })();
 window.addEventListener('DOMContentLoaded', DialogueManager.init);
 ```
 
-## Dialogue System {#dialogue-system}
+## Dialogue System
 
 Authoring Format
 
@@ -155,7 +155,7 @@ Each dialogue node consists of the following fields:
 - **Conditional Logic**: (Planned) Add conditions to control dialogue flow.
 - **Export Logs**: (Planned) Save and review playthrough logs.
 
-## Game Engine {#game-engine}
+## Game Engine
 
 ### Input & Loop
 
@@ -182,7 +182,7 @@ graph TD
   a2 --> end2
 ```
 
-## UI and Rendering {#ui-and-rendering}
+## UI and Rendering
 
 ### Basic DOM
 
@@ -211,7 +211,7 @@ function showNode(id) {
 - Sound effects or audio reading
 
 
-## Effort Breakdown {#effort-breakdown}
+## Effort Breakdown
 
 🟦 30% - Dialogue parsing & engine logic
 🟩 20% - Dialogue table authoring & structure
@@ -220,7 +220,7 @@ function showNode(id) {
 🟪 10% - CSS & visual polish
 
 
-## Mermaid Diagrams {#mermaid-diagrams}
+## Mermaid Diagrams
 
 <!-- This README includes:
 
@@ -257,7 +257,7 @@ classDiagram
 ```
 
 
-## Roadmap {#roadmap}
+## Roadmap
 
 ```
 gantt
@@ -273,7 +273,7 @@ gantt
 ```
 
 
-## Contributing {#contributing}
+## Contributing
 
 Pull requests welcome. Ideas welcome. Keep it minimal.
 
@@ -285,6 +285,6 @@ Submit CSS themes (but keep it simple)
 
 Avoid adding libraries unless absolutely necessary
 
-## License {#license}
+## License
 
 MIT. This is a tool for people who want to write stories in tables.
