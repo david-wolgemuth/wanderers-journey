@@ -1,47 +1,28 @@
-Wanderer's Journey
+# Wanderer's Journey
 
 > “I have walked this path before… but never like this.”
-
 
 
 Wanderer's Journey is a zero-dependency, text-based, side-scrolling narrative engine. It’s built for creators who prefer plaintext over pixels, structure over spectacle, and clarity over cleverness.
 
 This project isn’t just a game — it’s a framework for walking through stories, authored in simple HTML tables, rendered in the browser, and driven by keyboard, mouse, or touch.
 
+## Table of Contents
 
----
+- [Getting Started](#getting-started)
+- [Project Goals](#project-goals)
+- [Design Philosophy](#design-philosophy)
+- [Folder Structure](#folder-structure)
+- [Dialogue System](#dialogue-system)
+- [Game Engine](#game-engine)
+- [UI and Rendering](#ui-and-rendering)
+- [Effort Breakdown](#effort-breakdown)
+- [Mermaid Diagrams](#mermaid-diagrams)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
-Table of Contents
-
-Getting Started
-
-Project Goals
-
-Design Philosophy
-
-Folder Structure
-
-Dialogue System
-
-Game Engine
-
-UI and Rendering
-
-Effort Breakdown
-
-Mermaid Diagrams
-
-Roadmap
-
-Contributing
-
-License
-
-
-
----
-
-Getting Started {#getting-started}
+## Getting Started {#getting-started}
 
 No build tools. No installs. Just open index.html in a browser.
 
@@ -51,10 +32,7 @@ open index.html  # or drag into browser
 
 You’ll see a wanderer. And a voice. And a question.
 
-
----
-
-Project Goals {#project-goals}
+## Project Goals {#project-goals}
 
 This project was created to explore:
 
@@ -66,11 +44,7 @@ Text-first interaction — like a visual novel with no interface clutter
 
 World-building without world-building tools — just files and flow
 
-
-
----
-
-Design Philosophy {#design-philosophy}
+## Design Philosophy {#design-philosophy}
 
 Plaintext first: Tables are the source of truth
 
@@ -83,6 +57,7 @@ Stable evolution: Easy to add chapters, tags, flags
 Boring tech: Prefer the idiomatic and tested
 
 
+```mermaid
 graph TD
   A[Philosophy] --> B[Plaintext-first]
   A --> C[No Dependencies]
@@ -90,16 +65,15 @@ graph TD
   A --> E[Offline Durable]
   A --> F[Touch + Keyboard UX]
   A --> G[Readable Git Diffs]
+```
 
 
----
-
-Folder Structure {#folder-structure}
+## Folder Structure {#folder-structure}
 
 > Every file matters. Each one does exactly one thing.
 
 
-
+```mermaid
 graph TD
   A[Root Directory] --> B[index.html]
   A --> C[style.css]
@@ -107,8 +81,10 @@ graph TD
   A --> E[README.md]
   A --> F[data/]
   F --> G[story-v1.html]
+```
 
-index.html
+```html
+<!-- index.html -->
 
 <main>
   <section id="dialogue-ui">
@@ -123,8 +99,10 @@ index.html
     </tbody>
   </table>
 </main>
+```
 
-style.css
+```css
+/* style.css */
 
 #dialogue-ui {
   max-width: 500px;
@@ -133,56 +111,55 @@ style.css
   border-radius: 10px;
   box-shadow: 0 0 10px #888;
 }
+```
 
-game.js
+```js
+// game.js
 
 function parseTableToObjects(tableId) { /* ... */ }
 const DialogueManager = (() => { /* ... */ })();
 window.addEventListener('DOMContentLoaded', DialogueManager.init);
+```
 
-
----
-
-Dialogue System {#dialogue-system}
+## Dialogue System {#dialogue-system}
 
 Authoring Format
 
+```html
 <tr><td>start</td><td>Wanderer</td><td>The forest whispers.</td><td></td></tr>
 <tr><td>q1</td><td>Fox</td><td>Do you listen?</td><td>start</td></tr>
+```
 
 Data Flow
 
+```mermaid
 flowchart TD
   A[HTML <table>] --> B[parseTable()]
   B --> C[Array of Dialogue Rows]
   C --> D[buildDialogueTree()]
   D --> E[Tree: parent → children[]]
+```
 
-id: Unique node
+### Dialogue Node Structure
 
-character: Who’s speaking
+Each dialogue node consists of the following fields:
 
-text: What’s said
+- **id**: Unique identifier for the node.
+- **character**: The character speaking.
+- **text**: The dialogue text.
+- **parent**: The ID of the parent node (where the dialogue originated).
 
-parent: Where it came from
+### Features
 
+- **Branching**: Create multiple dialogue paths.
+- **Conditional Logic**: (Planned) Add conditions to control dialogue flow.
+- **Export Logs**: (Planned) Save and review playthrough logs.
 
-Supports:
+## Game Engine {#game-engine}
 
-Branching
+### Input & Loop
 
-Conditional logic (future)
-
-Exporting playthrough logs (future)
-
-
-
----
-
-Game Engine {#game-engine}
-
-Input & Loop
-
+```mermaid
 sequenceDiagram
   participant User
   participant InputListener
@@ -192,51 +169,49 @@ sequenceDiagram
   User->>InputListener: click / tap / keypress
   InputListener->>DialogueEngine: advanceDialogue()
   DialogueEngine->>UI: update text + character
+```
 
-Example Tree
+### Example Tree
 
+```mermaid
 graph TD
   start --> q1
   q1 --> a1
   q1 --> a2
   a1 --> end1
   a2 --> end2
+```
 
+## UI and Rendering {#ui-and-rendering}
 
----
+### Basic DOM
 
-UI and Rendering {#ui-and-rendering}
+- `<blockquote>` for dialogue
 
-Basic DOM
+- `<h2>` for character name
 
-<blockquote> for dialogue
+```css
+/* CSS for spacing and mobile UX */
+```
 
-<h2> for character name
+### Runtime Logic
 
-CSS for spacing and mobile UX
-
-
-Runtime Logic
-
+```javascript
 function showNode(id) {
   const node = findById(id);
   nameEl.textContent = node.character;
   textEl.textContent = node.text;
 }
+```
 
-Future upgrades:
+### Future Upgrades
 
-Dialogue choices
-
-Avatars / portraits
-
-Sound effects or audio reading
-
+- Dialogue choices
+- Avatars / portraits
+- Sound effects or audio reading
 
 
----
-
-Effort Breakdown {#effort-breakdown}
+## Effort Breakdown {#effort-breakdown}
 
 🟦 30% - Dialogue parsing & engine logic
 🟩 20% - Dialogue table authoring & structure
@@ -245,11 +220,9 @@ Effort Breakdown {#effort-breakdown}
 🟪 10% - CSS & visual polish
 
 
----
+## Mermaid Diagrams {#mermaid-diagrams}
 
-Mermaid Diagrams {#mermaid-diagrams}
-
-This README includes:
+<!-- This README includes:
 
 graph TD for folder and tree views
 
@@ -259,9 +232,10 @@ sequenceDiagram for input → UI loops
 
 classDiagram for JS structure
 
-gantt for roadmap
+gantt for roadmap -->
 
 
+```mermaid
 classDiagram
   class DialogueNode {
     string id
@@ -280,12 +254,12 @@ classDiagram
 
   DialogueTree --> DialogueNode
   GameState --> DialogueNode
+```
 
 
----
+## Roadmap {#roadmap}
 
-Roadmap {#roadmap}
-
+```
 gantt
   title Wanderer's Journey Roadmap
   dateFormat  YYYY-MM-DD
@@ -296,11 +270,10 @@ gantt
   Dialogue Choices       :active, int1, 2024-06-08, 3d
   Export Logs            :planned, int2, 2024-06-11, 2d
   Map Navigation         :planned, int3, 2024-06-13, 4d
+```
 
 
----
-
-Contributing {#contributing}
+## Contributing {#contributing}
 
 Pull requests welcome. Ideas welcome. Keep it minimal.
 
@@ -312,14 +285,6 @@ Submit CSS themes (but keep it simple)
 
 Avoid adding libraries unless absolutely necessary
 
-
-
----
-
-License {#license}
+## License {#license}
 
 MIT. This is a tool for people who want to write stories in tables.
-
-
----
-
